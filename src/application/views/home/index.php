@@ -59,7 +59,8 @@
 								<input type="text" class="form-control" placeholder="Search...">
 								<span class="bi-search"></span>
 							</form>
-
+                            <button id="id-cart" style="padding:0 10px"  class="btn btn-primary" type="button"><i style="font-size: 2em;" class="bi bi-cart"></i></button>
+                            
 							
 						</div>
 						<div class="col-2 text-end">
@@ -153,141 +154,27 @@
 				</div>
 				<!-- <div class="col-sm-6 text-sm-end"><a href="category.html" class="read-more">View All</a></div> -->
 			</div>
-
+            
 			<div class="row">
+            <?php foreach($list as $item):?>
 				<div class="col-lg-4 mb-4">
 					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_7_horizontal.jpg" alt="Image" class="img-fluid"></a>
+						<a href="single.html" class="img-link"><img src="<?php echo $item['IMAGE'] ?>" alt="Image" class="img-fluid"></a>
 						<div class="excerpt">
 							
 
-							<h2><a href="single.html">Cà phê đá</a></h2>
+							<h2><a href="single.html"><?php echo $item['NAME'] ?></a></h2>
 							
                             <div class="post-meta align-items-center text-left clearfix">
-                            <h5><b>12.000đ</b></h5>
+                            <h5><b><?php echo $item['PRICE'] ?>đ</b></h5>
 							</div>
-							<p>Sự kết hợp hoàn hảo giữa hạt cà phê Robusta & Arabica thượng hạng được trồng trên những vùng cao nguyên Việt Nam màu mỡ, qua những bí quyết rang xay độc đáo, Highlands Coffee chúng tôi tự hào giới thiệu những dòng sản phẩm Cà phê mang hương vị đậm đà và tinh tế.</p>
+							<p><?php echo $item['DESCRIPTION']?></p>
 							<p><a href="#" class="read-more">Add to cart</a></p>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4 mb-4">
-					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_6_horizontal.jpg" alt="Image" class="img-fluid"></a>
-						<div class="excerpt">
-							
-
-							<h2><a href="single.html">Cà phê đá</a></h2>
-							
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 mb-4">
-					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_5_horizontal.jpg" alt="Image" class="img-fluid"></a>
-						<div class="excerpt">
-							
-
-							<h2><a href="single.html">Cà phê đá</a></h2>
-							
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="col-lg-4 mb-4">
-					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_4_horizontal.jpg" alt="Image" class="img-fluid"></a>
-						<div class="excerpt">
-							
-
-							<h2><a href="single.html">Cà phê đá</a></h2>
-							
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 mb-4">
-					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_3_horizontal.jpg" alt="Image" class="img-fluid"></a>
-						<div class="excerpt">
-							
-
-							<h2><a href="single.html">Cà phê đá</a></h2>
-							
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 mb-4">
-					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_2_horizontal.jpg" alt="Image" class="img-fluid"></a>
-						<div class="excerpt">
-							
-
-							<h2><a href="single.html">Cà phê đá</a></h2>
-							
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="col-lg-4 mb-4">
-					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_1_horizontal.jpg" alt="Image" class="img-fluid"></a>
-						<div class="excerpt">
-							
-
-							<h2><a href="single.html">Cà phê đá</a></h2>
-							
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 mb-4">
-					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_4_horizontal.jpg" alt="Image" class="img-fluid"></a>
-						<div class="excerpt">
-							
-							
-
-							<h2><a href="single.html">Cà phê đá</a></h2>
-							
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 mb-4">
-					<div class="post-entry-alt">
-						<a href="single.html" class="img-link"><img src="/public/assets/theme/images/img_3_horizontal.jpg" alt="Image" class="img-fluid"></a>
-						<div class="excerpt">
-							
-							
-
-							<h2><a href="single.html">Cà phê đá</a></h2>
-							
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
+                <?php endforeach;?>
+				
 			</div>
 			
 		</div>

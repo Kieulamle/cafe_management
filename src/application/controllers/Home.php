@@ -20,8 +20,10 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->model('user_model','user');
-		$list = $this->user->get_list();
+		$this->load->model('product_model','product');
+		$list = $this->product->get_list();
+		
+		
 		
 		$this->load->view('home/index',array('list' => $list));
 		

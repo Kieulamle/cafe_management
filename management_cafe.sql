@@ -1,0 +1,65 @@
+create database management_cafe;
+use management_cafe;
+create table product
+(
+ID int AUTO_INCREMENT PRIMARY KEY,
+NAME varchar(80),
+QUANTITY int,
+CREATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+STATUS enum('active','inactive'),
+DESCRIPTION varchar(100),
+IMAGE longtext,
+PRICE decimal(15,2)
+);
+create table order_bill
+(
+ID int AUTO_INCREMENT PRIMARY KEY,
+CREATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+STATUS ENUM('cancel','success'),
+NOTE varchar(100),
+phone varchar(100),
+diachi varchar(50),
+TOTAL_COST decimal(15,2)
+);
+create table order_details
+(
+O_ID int,
+FOREIGN KEY (O_ID) REFERENCES order_bill(ID),
+P_ID int,
+FOREIGN KEY (P_ID) REFERENCES product(ID),
+QUANTITY int,
+COST decimal(15,2),
+PRIMARY KEY(O_ID,P_ID)
+);
+create table user
+(
+ID int AUTO_INCREMENT PRIMARY KEY,
+NAME varchar(100),
+ROLE ENUM('admin','employee'),
+ACCOUNT varchar(100),
+PASSWORD varchar(50),
+CREATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+ create table import_products
+ (
+ I_ID int,
+ FOREIGN KEY (I_ID) REFERENCES product(ID),
+IMPORTED_QUANTITY INT,
+CREATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+TOTAL_QUANTITY INT,
+PRIMARY KEY(I_ID,CREATED_DATE)
+);
+create table customer
+(
+Phone varchar(10) primary key,
+address varchar(225),
+NAME varchar(50),
+O_ID INT,
+FOREIGN KEY (O_ID) REFERENCES ORDER_BILL(ID),
+CREATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+STATUS enum('active','inactive')
+)
+

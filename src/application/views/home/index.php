@@ -149,9 +149,9 @@
 
 			<div class="row mb-4">
 				<div class="col-sm-6">
-					<h2 class="posts-entry-title">Politics</h2>
+					<h2 class="posts-entry-title">Sản phẩm</h2>
 				</div>
-				<div class="col-sm-6 text-sm-end"><a href="category.html" class="read-more">View All</a></div>
+				<!-- <div class="col-sm-6 text-sm-end"><a href="category.html" class="read-more">View All</a></div> -->
 			</div>
 
 			<div class="row">

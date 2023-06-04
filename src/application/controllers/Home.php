@@ -15,10 +15,14 @@ class Home extends CI_Controller {
 	}
 
 	public function addCart(){
-		// todo create order, ham them du lieu bill order vao database
 		$data = $this->input->post();
-		$this->load->model('product_model','product');
+		$this->load->model('order_bill_model', 'order');
+		$order = $this->order->add_order($data);
+		if(empty($order)){
+			echo json_encode( array('success' => false) );exit;
+		}
 		echo json_encode( array('success' => true) );exit;
+		
 	}
 	
 }

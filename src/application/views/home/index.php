@@ -318,11 +318,11 @@
                         <div id="id-list-cart" class="mb-4"></div>
                         <div class="form-group">
                             <label>Số điện thoại</label>
-                            <input type="text" name="phone" class="form-control">
+                            <input type="text" name="phone" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Địa chỉ</label>
-                            <input type="text" name="address" class="form-control">
+                            <input type="text" name="address" class="form-control" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

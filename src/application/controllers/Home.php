@@ -14,11 +14,13 @@ class Home extends CI_Controller {
 		
 	}
 
-	public function createOrder(){
-		// todo create order
+	public function addCart(){
+		// todo create order, ham them du lieu bill order vao database
 		$data = $this->input->post();
-		print_r($data);
+		$this->load->model('product_model','product');
 		echo json_encode( array('success' => true) );exit;
 	}
 	
 }
+
+

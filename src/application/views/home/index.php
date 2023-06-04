@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="/public/assets/theme/css/flatpickr.min.css">
 
 
-	<title>Blogy &mdash; Free Bootstrap 5 Website Template by Untree.co</title>
+	<title>FoxSwing &mdash; Coffee Shop</title>
     <style>
         #id-cart{
             position: relative;
@@ -98,7 +98,7 @@
 
 						<div class="text">
 							<span class="date">Apr. 14th, 2022</span>
-							<h2>AI can now kill those annoying cookie pop-ups</h2>
+							<h2>Customer satisfaction is our success</h2>
 						</div>
 					</a>
 					<a href="single.html" class="h-entry v-height gradient">
@@ -107,7 +107,7 @@
 
 						<div class="text">
 							<span class="date">Apr. 14th, 2022</span>
-							<h2>Don’t assume your user data in the cloud is safe</h2>
+							<h2>Thank you for choosing our products</h2>
 						</div>
 					</a>
 				</div>
@@ -118,7 +118,7 @@
 
 						<div class="text">
 							<span class="date">Apr. 14th, 2022</span>
-							<h2>Why is my internet so slow?</h2>
+							<h2>Let's enjoy this moment</h2>
 						</div>
 					</a>
 				</div>
@@ -129,7 +129,7 @@
 
 						<div class="text">
 							<span class="date">Apr. 14th, 2022</span>
-							<h2>Cafe đường đá thơm ngon</h2>
+							<h2>Don't give up</h2>
 						</div>
 					</a>
 					<a href="single.html" class="h-entry v-height gradient">
@@ -138,7 +138,7 @@
 
 						<div class="text">
 							<span class="date">Apr. 14th, 2022</span>
-							<h2>Thought you loved Python? Wait until you meet Rust</h2>
+							<h2>Be happy with us</h2>
 						</div>
 					</a>
 				</div>
@@ -198,7 +198,7 @@
 				<div class="col-lg-4">
 					<div class="widget">
 						<h3 class="mb-4">About</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						<p>Never stop dreaming, never stop believing, never give up, never stop trying, and never stop learning</p>
 					</div> <!-- /.widget -->
 					<div class="widget">
 						<h3>Social</h3>
@@ -364,7 +364,7 @@
             })
 
             $(document).on('submit', 'form', function(){
-                $.post( "/index.php/home/createOrder", $(this).serialize(), function(data) {
+                $.post( "/index.php/home/addCart", $(this).serialize(), function(data) {
                     if(data && data.success){
                         alert('Đã đặt hàng thành công!');
                         setDataCart([]);
@@ -391,7 +391,7 @@
             }
             var htmlList = '';
             for(var i = 0; i < arr.length; i++){
-                htmlList += '<div class="item-p-cart border-bottom d-flex justify-content-between mb-2 pb-2"><input  type="hidden" value="'+arr[i]['id']+'" name="product['+i+'][id]"/><span>'+arr[i]['name']+'</span> <input type="number" style="width: 50px" name="product['+i+'][num]" value="'+arr[i]['num']+'"/><a href="#" class="text-danger"><i class="bi bi-x-circle-fill"></i></a></div>'
+                htmlList += '<div class="item-p-cart border-bottom d-flex justify-content-between mb-2 pb-2"><input  type="hidden" value="'+arr[i]['id']+'" name="product[][id]"/><span>'+arr[i]['name']+'</span> <input type="number" style="width: 50px" name="product[][num]" value="'+arr[i]['num']+'"/><a href="#" class="text-danger"><i class="bi bi-x-circle-fill"></i></a></div>'
             }
             $('#id-list-cart').html(htmlList);
             $('#id-modal-cart').modal('show');

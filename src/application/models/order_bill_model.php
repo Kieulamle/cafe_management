@@ -34,7 +34,7 @@ class order_bill_model extends CI_Model {
         $idCustomer = '';
         $customer = $this->db->select('Phone')->where('Phone', $data['phone'])->get('customer')->result_array();
         if(empty($customer)){
-            $insertCsm = $this->db->insert('customer', array('Phone' => $data['phone'], 'address' => $data['address'], 'NAME' => $data['phone'], 'STATUS'=> 'active'));
+            $this->db->insert('customer', array('Phone' => $data['phone'], 'address' => $data['address'], 'NAME' => $data['phone'], 'STATUS'=> 'active'));
             $insertCsm = $this->db->insert_id();
             
             $idCustomer = $insertCsm;

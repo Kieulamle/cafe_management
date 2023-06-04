@@ -61,7 +61,7 @@
 				<div class="site-navigation">
 					<div class="row g-0 align-items-center">
 						<div class="col-2">
-							<a href="index.html" class="logo m-0 float-start">Blogy<span class="text-primary">.</span></a>
+							<a href="index.html" class="logo m-0 float-start">LamCafe<span class="text-primary">.</span></a>
 						</div>
 						<div class="col-8 text-center">
 							<form action="#" class="search-form d-inline-block d-lg-none">
@@ -178,7 +178,7 @@
                             <h5><b><?php echo $item['PRICE'] ?>đ</b></h5>
 							</div>
 							<p><?php echo $item['DESCRIPTION']?></p>
-							<p><a href="#" data-id="<?php echo $item['ID'] ?>" data-name="<?php echo $item['NAME'] ?>" class="read-more add-to-cart">Add to cart</a></p>
+							<p><a href="#" data-id="<?php echo $item['ID'] ?>" data-name="<?php echo $item['NAME'] ?>" data-price = "<?php echo $item['PRICE'] ?>" class="read-more add-to-cart">Add to cart</a></p>
 						</div>
 					</div>
 				</div>
@@ -316,6 +316,7 @@
                 <div class="modal-body">
                     <form>
                         <div id="id-list-cart" class="mb-4"></div>
+						<div class="text-right" style="text-align: right; font-weight: bold;" id="total-cart"></div>
                         <div class="form-group">
                             <label>Số điện thoại</label>
                             <input type="text" name="phone" class="form-control" required>
@@ -363,6 +364,27 @@
                 
             })
 
+			$(document).on('change', '.item-p-cart input[type=number]', function(){
+				var arr = getDataCart();
+				$(this).closest('#id-list-cart').find('.item-p-cart').each(function(){
+					var id = $(this).find('input[type=hidden]').val();
+					var number = $(this).find('input[type=number]').val();
+					var index = arr.findIndex(function(elm){
+						return elm.id == id;
+					})
+					if(index!==-1){
+						var item = arr[index];
+						item.num = Number(number);
+						arr[index] = item;
+					}
+
+				});
+				setDataCart(arr);
+				showCart();
+				
+				var id = $(this).closest('.item-p-cart').find('input[type=hidden]').val();
+			})
+
             $(document).on('submit', 'form', function(){
                 $.post( "/index.php/home/addCart", $(this).serialize(), function(data) {
                     if(data && data.success){
@@ -390,10 +412,13 @@
                 return;
             }
             var htmlList = '';
+			var total = 0;
             for(var i = 0; i < arr.length; i++){
-                htmlList += '<div class="item-p-cart border-bottom d-flex justify-content-between mb-2 pb-2"><input  type="hidden" value="'+arr[i]['id']+'" name="product['+i+'][id]"/><span>'+arr[i]['name']+'</span> <input type="number" style="width: 50px" name="product['+i+'][num]" value="'+arr[i]['num']+'"/><a href="#" class="text-danger"><i class="bi bi-x-circle-fill"></i></a></div>'
+				total += Number(arr[i]['num']) * Number(arr[i]['price']);
+                htmlList += '<div class="item-p-cart border-bottom d-flex justify-content-between mb-2 pb-2"><input  type="hidden" value="'+arr[i]['id']+'" name="product['+i+'][id]"/><span>'+arr[i]['name']+'</span> <input type="number" min="1" style="width: 50px" name="product['+i+'][num]" value="'+arr[i]['num']+'"/> <span>'+arr[i]['price']+'</span> <a href="#" class="text-danger"><i class="bi bi-x-circle-fill"></i></a></div>'
             }
             $('#id-list-cart').html(htmlList);
+			$('#total-cart').html(total);
             $('#id-modal-cart').modal('show');
         }
 
@@ -434,13 +459,14 @@
         function addCart(obj){
             var id =  obj.attr('data-id');
                 var name = obj.attr('data-name');
+				var price = obj.attr('data-price');
                 var arr = getDataCart();
                 var find = arr.find((elm) => elm.id == id);
                 if(find){
                     alert('Mặt hàng này đã có trong giỏ hàng');
-                    return;
+                    return false;
                 }
-                arr.push({id: id, name: name, num: 1});
+                arr.push({id: id, name: name, num: 1, price: price});
                 setDataCart(arr);
                 initCart();
                 return;

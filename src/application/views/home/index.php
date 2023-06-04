@@ -364,7 +364,7 @@
             })
 
             $(document).on('submit', 'form', function(){
-                $.post( "/index.php/home/addCart", $(this).serialize(), function(data) {
+                $.post( "/index.php/home/createOrder", $(this).serialize(), function(data) {
                     if(data && data.success){
                         alert('Đã đặt hàng thành công!');
                         setDataCart([]);
@@ -391,7 +391,7 @@
             }
             var htmlList = '';
             for(var i = 0; i < arr.length; i++){
-                htmlList += '<div class="item-p-cart border-bottom d-flex justify-content-between mb-2 pb-2"><input  type="hidden" value="'+arr[i]['id']+'" name="product[][id]"/><span>'+arr[i]['name']+'</span> <input type="number" style="width: 50px" name="product[][num]" value="'+arr[i]['num']+'"/><a href="#" class="text-danger"><i class="bi bi-x-circle-fill"></i></a></div>'
+                htmlList += '<div class="item-p-cart border-bottom d-flex justify-content-between mb-2 pb-2"><input  type="hidden" value="'+arr[i]['id']+'" name="product['+i+'][id]"/><span>'+arr[i]['name']+'</span> <input type="number" style="width: 50px" name="product['+i+'][num]" value="'+arr[i]['num']+'"/><a href="#" class="text-danger"><i class="bi bi-x-circle-fill"></i></a></div>'
             }
             $('#id-list-cart').html(htmlList);
             $('#id-modal-cart').modal('show');

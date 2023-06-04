@@ -14,8 +14,10 @@ class Home extends CI_Controller {
 		
 	}
 
-	public function addCart(){
+	public function createOrder(){
 		// todo create order
+		$data = $this->input->post();
+		print_r($data);
 		echo json_encode( array('success' => true) );exit;
 	}
 	

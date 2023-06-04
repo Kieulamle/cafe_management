@@ -28,5 +28,10 @@ class Home extends CI_Controller {
 		$this->load->view('home/index',array('list' => $list));
 		
 	}
+
+	public function addCart(){
+		// todo create order
+		echo json_encode( array('success' => true) );exit;
+	}
 	
 }

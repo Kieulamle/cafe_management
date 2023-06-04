@@ -34,6 +34,15 @@
 
 
 	<title>Blogy &mdash; Free Bootstrap 5 Website Template by Untree.co</title>
+    <style>
+        #id-cart{
+            position: relative;
+        }
+        #id-cart span{
+            position: absolute;
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -59,7 +68,7 @@
 								<input type="text" class="form-control" placeholder="Search...">
 								<span class="bi-search"></span>
 							</form>
-                            <button id="id-cart" style="padding:0 10px"  class="btn btn-primary" type="button"><i style="font-size: 2em;" class="bi bi-cart"></i></button>
+                            <button id="id-cart" data-toggle="modal" data-target=".bd-example-modal-lg" style="padding:0 10px"  class="btn btn-primary" type="button"><i style="font-size: 2em;" class="bi bi-cart"></i><span></span></button>
                             
 							
 						</div>
@@ -169,7 +178,7 @@
                             <h5><b><?php echo $item['PRICE'] ?>đ</b></h5>
 							</div>
 							<p><?php echo $item['DESCRIPTION']?></p>
-							<p><a href="#" class="read-more">Add to cart</a></p>
+							<p><a href="#" data-id="<?php echo $item['ID'] ?>" data-name="<?php echo $item['NAME'] ?>" class="read-more add-to-cart">Add to cart</a></p>
 						</div>
 					</div>
 				</div>
@@ -294,7 +303,35 @@
     	</div>
     </div>
 
+    <!-- modal gio hang -->
+    <div class="modal fade bd-example-modal-lg" id="id-modal-cart" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Giỏ hàng</h5>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button> -->
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div id="id-list-cart" class="mb-4"></div>
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input type="text" name="phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" name="address" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="/public/assets/theme/js/bootstrap.bundle.min.js"></script>
     <script src="/public/assets/theme/js/tiny-slider.js"></script>
 
@@ -307,6 +344,132 @@
     <script src="/public/assets/theme/js/counter.js"></script>
     <script src="/public/assets/theme/js/custom.js"></script>
 
-    
+    <script>
+        var keyCart = 'carts';
+        $(document).ready(function(){
+            initCart();
+            $(document).on('click', '.add-to-cart', function(){
+                addCart($(this));
+            })
+
+            $(document).on('click', '#id-cart', function(){
+                showCart();
+                
+            })
+
+            $(document).on('click', '.item-p-cart a', function(){
+                
+                deleteItemInCart($(this));
+                
+            })
+
+            $(document).on('submit', 'form', function(){
+                $.post( "/index.php/home/addCart", $(this).serialize(), function(data) {
+                    if(data && data.success){
+                        alert('Đã đặt hàng thành công!');
+                        setDataCart([]);
+                        initCart();
+                        $('#id-modal-cart').modal('hide');
+                    }else{
+                        alert('Lỗi vui lòng quay lại sau!');
+                    }
+                    
+                }, 'json')
+                return false;
+            })
+            
+            
+        });
+
+        function showCart(){
+            var arr = getDataCart();
+            if(arr.length === 0){
+                $('#id-modal-cart').modal('hide');
+                alert('Không có sản phẩm nào trong giỏ hàng!');
+                
+                return;
+            }
+            var htmlList = '';
+            for(var i = 0; i < arr.length; i++){
+                htmlList += '<div class="item-p-cart border-bottom d-flex justify-content-between mb-2 pb-2"><input  type="hidden" value="'+arr[i]['id']+'" name="product[][id]"/><span>'+arr[i]['name']+'</span> <input type="number" style="width: 50px" name="product[][num]" value="'+arr[i]['num']+'"/><a href="#" class="text-danger"><i class="bi bi-x-circle-fill"></i></a></div>'
+            }
+            $('#id-list-cart').html(htmlList);
+            $('#id-modal-cart').modal('show');
+        }
+
+        /**
+         * delete item cart
+         */
+        function deleteItemInCart(obj){
+            var id = obj.closest('div').find('input[type=hidden]').val();
+            
+            var arr = getDataCart();
+            var index = arr.findIndex((elm) => elm.id == id);
+            if(index !== -1){
+                arr.splice(index, 1);
+            }
+            setDataCart(arr);
+            showCart();
+            initCart();
+            return false;
+        }
+
+        /**
+         * show num product in cart
+         */
+        function initCart(){
+            var objCart = $('#id-cart');
+            var arr = getDataCart();
+            if(arr.length === 0){
+                objCart.find('span').hide();
+            }else{
+                objCart.find('span').html(arr.length);
+                objCart.find('span').show();
+            }
+        }
+
+        /**
+         * add product to cart
+         */
+        function addCart(obj){
+            var id =  obj.attr('data-id');
+                var name = obj.attr('data-name');
+                var arr = getDataCart();
+                var find = arr.find((elm) => elm.id == id);
+                if(find){
+                    alert('Mặt hàng này đã có trong giỏ hàng');
+                    return;
+                }
+                arr.push({id: id, name: name, num: 1});
+                setDataCart(arr);
+                initCart();
+                return;
+        }
+
+        /**
+         * get data cart in localStorage
+         */
+        function getDataCart(){
+            var arr = localStorage.getItem(keyCart);
+                if(arr){
+                    try{
+                        arr = JSON.parse(arr);
+                    }catch(err){
+                        arr = [];
+                    }
+                    
+                }else{
+                    arr = [];
+                }
+            return arr;
+        }
+
+        /**
+         * set data in cart
+         */
+        function setDataCart(arr){
+            localStorage.setItem(keyCart, JSON.stringify(arr));
+        }
+    </script>    
   </body>
   </html>
